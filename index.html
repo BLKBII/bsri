@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script data-require="jquery@*" data-semver="2.1.4" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+
+  <script src="https://www.highcharts.com/samples/data/maps/world.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel='stylesheet' id='normalize-css' href='https://blackrockblog.scdn4.secure.raxcdn.com/content/themes/blackrock/normalize.min.css?ver=1447112317' type='text/css' media='all' />
+  <link rel='stylesheet' id='foundation-css' href='https://blackrockblog.scdn4.secure.raxcdn.com/content/themes/blackrock/foundation.css?ver=1447112337' type='text/css' media='all' />
+  <link rel='stylesheet' id='brstyle-css' href='https://blackrockblog.scdn4.secure.raxcdn.com/content/themes/blackrock/style.css?ver=1447112305' type='text/css' media='all' />
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <div class="se-pre-con"></div>
+  <div class="container">
+    <nav id="sbNavBar" class="navbar navbar-default ">
+
+
+      <div class="navbar-header">
+
+        <a class="navbar-brand" href="http://www.blackrock.com/corporate/en-us/insights/blackrock-investment-institute" target="_blank">BlackRock Investment Institute</a>
+      </div>
+
+
+      <div>
+        <ul id="printIcon" class="nav navbar-nav navbar-right   ">
+          <li><a href="https://s3.amazonaws.com/blackrockblog-blanktemplate-assets/data/BlackRockSovereignRiskIndex.xlsx" role="button"><span class="glyphicon glyphicon-cloud-download"></span> Download Data</a></li>
+          <li><a href="javascript:window.print()" role="button"><span class="glyphicon glyphicon-print"></span> Print</a></li>
+        </ul>
+      </div>
+
+    </nav>
+  </div>
+
+  <div class="container">
+
+
+    <div class="col-md-6">
+      <h1 id="mainHeader">BlackRock Sovereign Risk Index</h1>
+    </div>
+
+    <div class="col-md-6">
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <button id="topButtonDetail" type="button" class="btn btn-default"> Country Detail</button>
+        <button id="topButtonHowitWorks" type="button" class="btn btn-default">How it Works</button>
+
+        <button id="topButtonHead2Head" type="button" class="btn btn-default">Head to Head</button>
+        <button id="topButtonMap" type="button" class="btn btn-default">Map</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container">
+
+
+    <div class="col-sm-12">
+      <p>Drawing on a pool of more than 30 quantitative measures spanning financial data, surveys and political insights, the BlackRock Sovereign Risk Index (BSRI) provides investors with a framework for tracking sovereign credit risk in 50 countries.</p>
+      <p>The BSRI breaks down the data into four main categories that each count toward a country's final BSRI score and ranking: Fiscal Space (40%), Willingness to Pay (30%), External Finance Position (20%) and Financial Sector Health (10%). See <a href="https://www2.blackrock.com/webcore/litService/search/getDocument.seam%3Fvenue%3DPUB_IND%26source%3DGLOBAL%26contentId%3D1111142235">Introducing the BlackRock Sovereign Risk Index</a>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="container">
+
+
+    <div class="col-sm-6">
+      <label class="col-md-4 control-label" for="selectComponent">Select Component:</label>
+      <div id="componentSelectFormDiv" class="col-md-8">
+        <select class="form-control input-sm  " id="selectComponent">
+        </select>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+
+    </div>
+  </div>
+
+
+
+  <div class="container ">
+    <div id="barChart" class="col-md-6"></div>
+    <div id="updateBullets" class="col-md-6 ">
+      <h4 id="quarterlyHeader">The latest quarterly moves are:</h4>
+      <ul class="sbBullets">
+        <li class="updateBullet">Emerging market resources exporters took a beating in 2015 as declining energy and commodity prices led to a deterioration in budget and current account balances — and pressured local currencies. <a class="countryLink" href="#">Colombia</a> (down
+          nine notches), <a class="countryLink" href="#">Brazil</a>, <a class="countryLink" href="#">Russia</a> and <a class="countryLink" href="#">Peru</a> (all down eight) were the biggest rankings decliners. </li>
+        <li class="updateBullet">We have fine-tuned our methodology for scoring the external finance positions of eurozone economies. The lion’s share of eurozone countries’ debt is euro denominated. We have always viewed a portion of this debt as “quasi-external” because individual
+          members do not control the European Central Bank (ECB). We assigned these quasi-external weights based on the inverse of each nation’s perceived clout in ECB policymaking. We have now simplified our framework to two eurozone tiers: <a class="countryLink"
+          href="#">Germany</a>, <a class="countryLink" href="#">France</a>, <a class="countryLink" href="#">Italy</a> and <a class="countryLink" href="#">Spain</a> — and the rest. </li>
+        <li class="updateBullet">Peripheral nations <a class="countryLink" href="#">Ireland</a> (up 13 notches in the rankings over the past year) and <a class="countryLink" href="#">Spain</a> (up six) were the major beneficiaries of this tweak to our methodology, which reduced
+          the perceived external debt burden of both countries. </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="dividerLine">-</div>
+  </div>
+
+  <div class="container">
+    <div class="col-sm-6">
+      <h3 id="headerCountryDetail" class="h3Header">Country Detail</h3>
+    </div>
+    <div class="col-sm-6">
+      <label class="col-md-4 control-label" for="selectCountry">Select Country:</label>
+      <div id="countrySelectFormDiv" class="col-md-8">
+        <select class="form-control input-md  " id="selectCountry">
+
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="container">
+    <div id="tsChart" class="col-md-8">
+
+    </div>
+    <div id="countryText" class="col-md-4">
+      <div id="flagpicture" style="width:32px;float: right;">
+        <img class="flag Argentina" id="flag" style="float: middle;" src="https://s3.amazonaws.com/blackrockblog-blanktemplate-assets/images/trans.gif" />
+      </div>
+      <ul class="sbBullets">
+        <li id="bullet1" class="updateBullet">Bullet 1. </li>
+        <li id="bullet2" class="updateBullet">Bullet 2.</li>
+        <li id="bullet3" class="updateBullet">Bullet 3.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div class="dividerLine">-</div>
+  </div>
+  <div class="container">
+    <div class="col-sm-12">
+      <h3 id="headerHowitWorks" class="h3Header">How it Works</h3>
+      <ul class="sbBulletsHowitWorks">
+        <li class="updateBullet"><b>Fiscal Space</b>—This category assesses if the fiscal dynamics of a particular country are on a sustainable path. It estimates how close a country is to breaking through a level of debt that will cause it to default (i.e., the concept of proximity
+          to distress), and how large of an adjustment is necessary in order to achieve an appropriate debt/GDP level in the future (i.e., the concept of distance from stability). </li>
+        <li class="updateBullet"><b>External Finance Position</b>—The factors in this category measure how leveraged a country might be to macroeconomic trade and policy shocks outside of its control. </li>
+        <li class="updateBullet"><b>Financial Sector Health</b>—This category considers the degree to which the financial sector of a country poses a threat to its creditworthiness, were the sector were to be nationalized, and estimates the likelihood that the financial sector
+          may require nationalization.</li>
+        <li class="updateBullet"><b>Willingness to Pay</b>—In this category we group factors which gauge if a country displays qualitative cultural and institutional traits that suggest both ability and willingness to pay off real debts.</li>
+
+      </ul>
+
+    </div>
+
+
+  </div>
+  <div class="container">
+    <div class="dividerLine">-</div>
+  </div>
+  <div class="container">
+    <div class="col-sm-12">
+      <h3 id="headerHead2Head" class="h3Header">Country Head to Head</h3>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div class="col-sm-6">
+      <label class="col-md-3 control-label" for="selectCountry1">Select Country:</label>
+      <div id="countrySelect1FormDiv" class="col-md-7">
+        <select class="form-control input-sm  " id="selectCountry1">
+        </select>
+      </div>
+      <div id="FlagDiv2" class="col-md-2">
+        <img class="flag Argentina" id="flag2" src="https://s3.amazonaws.com/blackrockblog-blanktemplate-assets/images/trans.gif" />
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <label class="col-md-3 control-label" for="selectCountry2">Select Country:</label>
+      <div id="countrySelect2FormDiv" class="col-md-7">
+        <select class="form-control input-sm  " id="selectCountry2">
+        </select>
+      </div>
+      <div id="FlagDiv3" class="col-md-2">
+        <img class="flag Australia" id="flag3" src="https://s3.amazonaws.com/blackrockblog-blanktemplate-assets/images/trans.gif" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div id="compChart" class="col-md-6 ">
+
+    </div>
+
+    <div id="rankChart" class="col-md-6 ">
+
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="dividerLine">-</div>
+  </div>
+
+  <div class="container">
+    <div class="col-sm-12">
+      <h3 id="headerMap" class="h3Header">Mapping Sovereign Risk</h3>
+      <h4 id="headerMapHover">Hover over countries to highlight rank in table below</h4>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div id="mapChart" class="col-sm-12">
+
+
+
+    </div>
+
+
+  </div>
+
+  <div class="container">
+    <h4 id="mapTableHeadline">BRSI country rankings by quintile</h4>
+    <table id="mapTable" class="table table-condensed table-bordered detailTable">
+      <tfoot>
+        <tr class="sbTable-Header">
+          <th id="mapHeader1" class="vert-align" colspan="2">Top ten</th>
+          <th id="mapHeader2" class="vert-align " colspan="2">11-20</th>
+          <th id="mapHeader3" class="vert-align " colspan="2">21-30</th>
+          <th id="mapHeader4" class="vert-align " colspan="2">31-40</th>
+          <th id="mapHeader5" class="vert-align " colspan="2">Bottom ten</th>
+        </tr>
+      </tfoot>
+      <tbody>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+        <tr>
+          <td class="number1 vert-align"></td>
+          <td class="target1 vert-align"></td>
+          <td class="number2 vert-align"></td>
+          <td class="target2 vert-align"></td>
+          <td class="number3 vert-align"></td>
+          <td class="target3 vert-align"></td>
+          <td class="number4 vert-align"></td>
+          <td class="target4 vert-align"></td>
+          <td class="number5 vert-align"></td>
+          <td class="target5 vert-align"></td>
+        </tr>
+
+
+
+      </tbody>
+
+    </table>
+  </div>
+
+
+
+
+</body>
+
+</html>
